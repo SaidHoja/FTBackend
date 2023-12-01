@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+      "target": "ES6",
+      "module": "CommonJS",
+      "outDir": "./build", // Set your desired output directory here
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "resolveJsonModule": true,
+      "forceConsistentCasingInFileNames": true,
+      
+  },
+
+}
