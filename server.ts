@@ -15,7 +15,7 @@ app.get('/', (req: Request, res:Response) =>
 })
 
 
-app.get('/login', (req: Request, res: Response) => {
+app.get('/login/', (req: Request, res: Response) => {
   connection.connect(function(err) {
     if (err) {
       console.error('error connecting: ' + err.stack);
@@ -32,7 +32,7 @@ app.get('/login', (req: Request, res: Response) => {
     // error will be an Error if one occurred during the query
     // results will contain the results of the query
     // fields will contain information about the returned results fields (if any)
-    console.log((results as RowDataPacket[])[0].email);
+    res.json(results)
   });
 })
 
