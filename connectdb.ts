@@ -4,7 +4,6 @@ import mysql, { RowDataPacket, ResultSetHeader, OkPacket } from 'mysql2';
 export default mysql.createConnection({
     host: dbConfig.HOST,
     user: dbConfig.USER,
-    port: dbConfig.PORT, // added port specification for security reasons
     password: dbConfig.PASSWORD,
     database: dbConfig.DB
   });
