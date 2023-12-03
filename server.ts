@@ -3,6 +3,7 @@ import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import express, {Request , Response} from 'express';
 
 const app = express();
+app.use(express.json())
 const port = process.env.PORT || 3002;
 
 app.listen(port, () => {
@@ -37,6 +38,23 @@ app.get('/login/:user', (req: Request, res: Response) => {
   console.log("before end")
 })
 
+app.post('/signup', (req: Request, res: Response) => {
+  connection.connect(function(err) {
+    if (err) {
+      console.error('error connecting: ' + err.stack);
+      return;
+    }
+   
+    console.log('connected as id ' + connection.threadId);
+  });
+  const info = req.body;
+  console.log(info);
+  connection.query(
+    'INSERT INTO ‘user’ (email, first_name,last_name,password) VALUES(?, ?, ?, ?)',[info.email, info.fname,info.lname,info.password])
+  
+  res.json({"message" : "success"});
+});
+
 
 /*
 budget 
@@ -55,7 +73,7 @@ app.post("/budget/add", (req : Request, res: Response) => {
 })
 app.get("/budget/:user/:month/:year", (req : Request, res: Response) =>{
   connection.connect();
-  connection.query("SELECT user_id, income FROM budget WHERE user_id = ? AND month_year = ?",[req.params.user,req.params.month +"/"+req.params.year], 
+  connection.query("SELECT user_id, income FROM budget WHERE email = ? AND month_year = ?",[req.params.user,req.params.month +"/"+req.params.year], 
     function (error, results, fields) {
       res.json(results);
     })
